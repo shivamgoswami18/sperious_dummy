@@ -6,20 +6,24 @@ import FooterHireButton from "./FooterHireButton";
 
 export default function Footer() {
   return (
-    <footer className="mt-8 bg-navy text-white">
-      <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative mt-8 overflow-hidden border-t border-edge bg-navy text-ink">
+      <div className="pointer-events-none absolute -left-20 top-0 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-violet/15 blur-3xl" />
+      <Container className="relative grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link href="/" className="mb-4 inline-flex items-center gap-2.5">
-            <Image
-              src="/assets/img/SPERIOUS S PNG.png"
-              alt="Sperious"
-              width={32}
-              height={32}
-              className="h-8 w-8 object-contain"
-            />
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-surface ring-1 ring-edge-strong">
+              <Image
+                src="/assets/img/SPERIOUS S PNG.png"
+                alt="Sperious"
+                width={32}
+                height={32}
+                className="h-7 w-7 object-contain"
+              />
+            </span>
             <span className="font-display text-lg font-semibold">Sperious</span>
           </Link>
-          <p className="max-w-xs text-sm leading-7 text-white/65">
+          <p className="max-w-xs text-sm leading-7 text-muted">
             One of India&apos;s leading web development and design companies.
             Research, development, automation, and system integration for
             software and hardware.
@@ -27,7 +31,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             Services
           </h3>
           <ul className="space-y-2.5">
@@ -35,7 +39,7 @@ export default function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-white/75 transition hover:text-white"
+                  className="text-sm text-muted transition hover:text-accent"
                 >
                   {item.title}
                 </Link>
@@ -45,7 +49,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             Quick links
           </h3>
           <ul className="space-y-2.5">
@@ -53,7 +57,7 @@ export default function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-white/75 transition hover:text-white"
+                  className="text-sm text-muted transition hover:text-accent"
                 >
                   {item.label}
                 </Link>
@@ -66,10 +70,10 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-accent">
             Contact
           </h3>
-          <ul className="space-y-3 text-sm text-white/75">
+          <ul className="space-y-3 text-sm text-muted">
             <li>
               Science City Rd,
               <br />
@@ -78,7 +82,7 @@ export default function Footer() {
             <li>
               <a
                 href="mailto:contact@sperious.co"
-                className="transition hover:text-white"
+                className="transition hover:text-accent"
               >
                 contact@sperious.co
               </a>
@@ -87,11 +91,11 @@ export default function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-white/10">
-        <Container className="flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/50 sm:flex-row">
+      <div className="relative border-t border-edge-strong">
+        <Container className="flex flex-col items-center justify-between gap-3 py-5 text-xs text-muted sm:flex-row">
           <p>
             Copyright © 2016{" "}
-            <Link href="/" className="text-white/80 hover:text-white">
+            <Link href="/" className="text-ink hover:text-accent">
               Sperious
             </Link>
             . All Rights Reserved.

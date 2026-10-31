@@ -16,7 +16,7 @@ export default function ServiceDetail({ title, image, imageStyle, children }) {
       />
       <section className="py-16 sm:py-20">
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-3xl border border-line bg-white p-8 shadow-card">
+          <div className="overflow-hidden rounded-3xl border border-edge-strong bg-surface p-8 shadow-card">
             <Image
               src={image}
               alt={title}
@@ -27,7 +27,7 @@ export default function ServiceDetail({ title, image, imageStyle, children }) {
             />
           </div>
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
               Capability
             </p>
             <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">

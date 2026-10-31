@@ -101,7 +101,7 @@ export default function ContactForm() {
           <p
             id="msgSubmit"
             className={`mt-4 text-sm ${
-              success ? "text-emerald-600" : "text-red-600"
+              success ? "text-accent" : "text-rose-400"
             }`}
           >
             {status}

@@ -1,17 +1,18 @@
-import { Manrope, Outfit } from "next/font/google";
+import { DM_Sans, Syne } from "next/font/google";
+import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import "./globals.css";
 
-const manrope = Manrope({
+const body = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-body",
 });
 
-const outfit = Outfit({
+const display = Syne({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-display",
 });
 
 export const metadata = {
@@ -29,8 +30,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${outfit.variable}`}>
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${body.variable} ${display.variable}`}
+      suppressHydrationWarning
+    >
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <Script id="sperious-theme" strategy="beforeInteractive">
+          {`(function(){try{var t=localStorage.getItem("sperious-theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}}catch(e){}})();`}
+        </Script>
         <Providers>
           <Header />
           <main>{children}</main>

@@ -12,31 +12,20 @@ export function SectionHeading({
   eyebrow,
   title,
   text,
-  light = false,
   align = "center",
 }) {
   return (
     <div className={`${align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl text-left"}`}>
       {eyebrow ? (
-        <p
-          className={`mb-3 text-xs font-semibold uppercase tracking-[0.22em] ${
-            light ? "text-gold" : "text-gold"
-          }`}
-        >
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-accent">
           {eyebrow}
         </p>
       ) : null}
-      <h2
-        className={`font-display text-3xl font-semibold tracking-tight sm:text-4xl ${
-          light ? "text-white" : "text-ink"
-        }`}
-      >
+      <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
         {title}
       </h2>
       {text ? (
-        <p className={`mt-4 text-base leading-7 ${light ? "text-white/70" : "text-muted"}`}>
-          {text}
-        </p>
+        <p className="mt-4 text-base leading-7 text-muted">{text}</p>
       ) : null}
     </div>
   );
@@ -44,13 +33,13 @@ export function SectionHeading({
 
 const buttonClasses = {
   primary:
-    "bg-accent text-white hover:bg-accent-dark shadow-sm hover:-translate-y-0.5",
+    "bg-accent text-on-accent hover:bg-accent-dark shadow-[0_0_24px_rgb(61_255_196_/_25%)] hover:-translate-y-0.5",
   secondary:
-    "bg-navy text-white hover:bg-navy-soft shadow-sm hover:-translate-y-0.5",
+    "bg-violet text-white hover:brightness-110 shadow-[0_0_24px_rgb(124_108_255_/_25%)] hover:-translate-y-0.5",
   ghost:
-    "bg-white text-ink border border-line hover:border-ink/20 hover:-translate-y-0.5",
+    "bg-transparent text-ink border border-edge-strong hover:border-accent/50 hover:bg-surface hover:-translate-y-0.5",
   light:
-    "bg-white/10 text-white border border-white/15 hover:bg-white/16",
+    "bg-surface-strong text-ink border border-edge-strong hover:bg-surface",
 };
 
 export function Button({
@@ -62,7 +51,7 @@ export function Button({
   type = "button",
   disabled = false,
 }) {
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${buttonClasses[variant]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${buttonClasses[variant]} ${className}`;
 
   if (href) {
     return (

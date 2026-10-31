@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CountUp from "@/components/CountUp";
 import PageHero from "@/components/PageHero";
 import { Container, SectionHeading } from "@/components/ui";
 import { stats } from "@/lib/content";
@@ -32,7 +33,7 @@ export default function AboutUsPage() {
 
       <section className="py-16 sm:py-20">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-[2rem] border border-line bg-white shadow-card">
+          <div className="overflow-hidden rounded-[2rem] border border-edge-strong bg-surface shadow-card">
             <Image
               src="/assets/img/it-services-home/about.png"
               alt="About Sperious"
@@ -63,7 +64,7 @@ export default function AboutUsPage() {
           {values.map((item) => (
             <article
               key={item.title}
-              className="rounded-3xl border border-line bg-white p-7 shadow-card"
+              className="rounded-3xl border border-edge bg-surface p-7 shadow-card"
             >
               <h3 className="font-display text-2xl font-semibold text-ink">
                 {item.title}
@@ -74,15 +75,19 @@ export default function AboutUsPage() {
         </Container>
       </section>
 
-      <section className="bg-navy py-16 text-white">
+      <section className="pb-16">
         <Container className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {stats.map((item) => (
             <div
               key={item.label}
-              className="rounded-3xl border border-white/10 bg-white/5 px-5 py-8 text-center"
+              className="rounded-3xl border border-edge bg-surface px-5 py-8 text-center"
             >
-              <p className="font-display text-3xl font-semibold">{item.value}</p>
-              <p className="mt-2 text-sm text-white/60">{item.label}</p>
+              <CountUp
+                value={item.value}
+                suffix={item.suffix}
+                className="font-display text-3xl font-semibold text-accent"
+              />
+              <p className="mt-2 text-sm text-muted">{item.label}</p>
             </div>
           ))}
         </Container>

@@ -20,9 +20,9 @@ export default function ServicePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="group rounded-3xl border border-line bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+              className="group rounded-3xl border border-edge bg-surface p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift"
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                 0{index + 1}
               </span>
               <h2 className="mt-4 font-display text-2xl font-semibold text-ink">

@@ -9,7 +9,7 @@ export default function FooterHireButton() {
     <button
       type="button"
       onClick={openHire}
-      className="text-sm text-white/75 transition hover:text-white"
+      className="text-sm text-muted transition hover:text-accent"
     >
       Hire Developer
     </button>

@@ -84,14 +84,14 @@ export default function HireModal() {
     >
       <button
         type="button"
-        className="absolute inset-0 bg-navy/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-paper/70 backdrop-blur-sm"
         aria-label="Close hire developer dialog"
         onClick={closeHire}
       />
-      <div className="relative z-10 max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl border border-line bg-white p-6 shadow-lift sm:p-8">
+      <div className="relative z-10 max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl border border-edge-strong bg-snow p-6 shadow-lift sm:p-8">
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
-            <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               Dedicated talent
             </p>
             <h2 id={titleId} className="font-display text-2xl font-semibold text-ink">
@@ -104,7 +104,7 @@ export default function HireModal() {
           <button
             type="button"
             onClick={closeHire}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted hover:text-ink"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-edge-strong text-muted hover:text-ink"
             aria-label="Close"
           >
             ×
@@ -168,7 +168,7 @@ export default function HireModal() {
               {hireDurations.map((item) => (
                 <label
                   key={item}
-                  className="flex cursor-pointer items-center justify-center rounded-full border border-line bg-paper px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:bg-white has-[:checked]:text-accent"
+                  className="flex cursor-pointer items-center justify-center rounded-full border border-edge-strong bg-paper px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:bg-accent/10 has-[:checked]:text-accent"
                 >
                   <input
                     type="radio"
@@ -185,7 +185,7 @@ export default function HireModal() {
           {status ? (
             <p
               className={`sm:col-span-2 text-sm ${
-                success ? "text-emerald-600" : "text-red-600"
+                success ? "text-accent" : "text-rose-400"
               }`}
             >
               {status}
