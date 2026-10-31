@@ -26,7 +26,7 @@
 
         $.ajax({
             type: "POST",
-            url: "assets/php/form-process.php",
+            url: "/api/contact",
             data: "name=" + name + "&email=" + email_id + "&msg_subject=" + msg_subject + "&phone_number=" + phone_number + "&message=" + message,
             success : function(statustxt){
                 if (statustxt == "success"){

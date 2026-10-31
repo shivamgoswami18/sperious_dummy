@@ -1,26 +1,37 @@
 "use client";
 
-import { useState } from "react";
-
-const technologies = [
-  "Vue js",
-  "React js",
-  "Node js",
-  "React Native",
-  "Angular js",
-  "Python",
-];
-
-const durations = [
-  { id: "gridRadios1", label: "0 - 3", value: "0 - 3" },
-  { id: "gridRadios2", label: "3 - 6", value: "3 - 6" },
-  { id: "gridRadios3", label: "6 - 12", value: "6 - 12" },
-  { id: "gridRadios4", label: "12 +", value: "12 +" },
-];
+import { useEffect, useId, useState } from "react";
+import { hireDurations, hireTechnologies } from "@/lib/content";
+import { useHire } from "./HireContext";
+import { Button } from "./ui";
 
 export default function HireModal() {
+  const { isOpen, closeHire } = useHire();
+  const titleId = useId();
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function onKey(event) {
+      if (event.key === "Escape") {
+        closeHire();
+      }
+    }
+
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [isOpen, closeHire]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -29,6 +40,7 @@ export default function HireModal() {
 
     setSending(true);
     setStatus("");
+    setSuccess(false);
 
     try {
       const response = await fetch("/api/hire-developer", {
@@ -49,6 +61,7 @@ export default function HireModal() {
         return;
       }
 
+      setSuccess(true);
       setStatus("Message sent successfully!");
       form.reset();
     } catch {
@@ -58,172 +71,135 @@ export default function HireModal() {
     }
   }
 
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <div
-      className="modal fade"
-      id="exampleModal"
-      tabIndex="-1"
+      className="fixed inset-0 z-[80] flex items-center justify-center p-4"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
+      aria-modal="true"
+      aria-labelledby={titleId}
     >
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
+      <button
+        type="button"
+        className="absolute inset-0 bg-navy/50 backdrop-blur-sm"
+        aria-label="Close hire developer dialog"
+        onClick={closeHire}
+      />
+      <div className="relative z-10 max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl border border-line bg-white p-6 shadow-lift sm:p-8">
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              Dedicated talent
+            </p>
+            <h2 id={titleId} className="font-display text-2xl font-semibold text-ink">
               Hire Developer
-            </h5>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted">
+              Do you want to hire dedicated sources on a contract basis?
+            </p>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="modal-body">
-              <p>Do you want to hire dedicated sources on a contract basis ?</p>
-              <div className="row">
-                <div className="col-6">
-                  <div className="form-group">
-                    <label htmlFor="full-name" className="col-form-label">
-                      Full Name*
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="full-name"
-                      name="fullname"
-                      placeholder="Enter Full Name"
-                      required
-                    />
-                  </div>
-                  &nbsp;
-                  <div className="form-group">
-                    <label htmlFor="phone-number" className="col-form-label">
-                      Phone Number*
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="phone-number"
-                      name="number"
-                      placeholder="Ex.+9156234785"
-                      required
-                    />
-                  </div>
-                  &nbsp;
-                </div>
-                <div className="col-6">
-                  <div className="form-group">
-                    <label htmlFor="email" className="col-form-label">
-                      Email*
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      name="email"
-                      placeholder="Enter your Email"
-                      required
-                    />
-                  </div>
-                  &nbsp;
-                  <div className="form-group">
-                    <label htmlFor="technology" className="col-form-label">
-                      Technology*
-                    </label>
-                    <br />
-                    <select
-                      id="technology"
-                      name="technology"
-                      className="form-control"
-                      required
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        Select Technology
-                      </option>
-                      {technologies.map((item) => (
-                        <option key={item} value={item}>
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <label htmlFor="duration" className="col-form-label">
-                  Duration(In Months)*
-                </label>
-              </div>
-              <br />
-              <div className="row">
-                <div className="col-6">
-                  {durations.slice(0, 2).map((item) => (
-                    <div className="form-check" key={item.id}>
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="duration"
-                        id={item.id}
-                        value={item.value}
-                        required
-                      />
-                      <label className="form-check-label" htmlFor={item.id}>
-                        {item.label}
-                      </label>
-                      &nbsp;
-                    </div>
-                  ))}
-                </div>
-                <div className="col-6">
-                  {durations.slice(2).map((item) => (
-                    <div className="form-check" key={item.id}>
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="duration"
-                        id={item.id}
-                        value={item.value}
-                        required
-                      />
-                      <label className="form-check-label" htmlFor={item.id}>
-                        {item.label}
-                      </label>
-                      &nbsp;
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {status ? (
-                <p
-                  className="mt-3"
-                  style={{
-                    color: status.includes("successfully") ? "#28a745" : "#dc3545",
-                  }}
-                >
-                  {status}
-                </p>
-              ) : null}
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" className="btn btn-primary" disabled={sending}>
-                {sending ? "Sending..." : "Send Message"}
-              </button>
-            </div>
-          </form>
+          <button
+            type="button"
+            onClick={closeHire}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted hover:text-ink"
+            aria-label="Close"
+          >
+            ×
+          </button>
         </div>
+
+        <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm font-medium text-ink">
+            Full Name*
+            <input
+              type="text"
+              name="fullname"
+              placeholder="Enter full name"
+              required
+              className="input-field mt-2"
+            />
+          </label>
+          <label className="block text-sm font-medium text-ink">
+            Email*
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              className="input-field mt-2"
+            />
+          </label>
+          <label className="block text-sm font-medium text-ink">
+            Phone Number*
+            <input
+              type="text"
+              name="number"
+              placeholder="Ex. +9156234785"
+              required
+              className="input-field mt-2"
+            />
+          </label>
+          <label className="block text-sm font-medium text-ink">
+            Technology*
+            <select
+              name="technology"
+              required
+              defaultValue=""
+              className="input-field mt-2"
+            >
+              <option value="" disabled>
+                Select technology
+              </option>
+              {hireTechnologies.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
+          <fieldset className="sm:col-span-2">
+            <legend className="mb-3 text-sm font-medium text-ink">
+              Duration (in months)*
+            </legend>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {hireDurations.map((item) => (
+                <label
+                  key={item}
+                  className="flex cursor-pointer items-center justify-center rounded-full border border-line bg-paper px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:bg-white has-[:checked]:text-accent"
+                >
+                  <input
+                    type="radio"
+                    name="duration"
+                    value={item}
+                    required
+                    className="sr-only"
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          {status ? (
+            <p
+              className={`sm:col-span-2 text-sm ${
+                success ? "text-emerald-600" : "text-red-600"
+              }`}
+            >
+              {status}
+            </p>
+          ) : null}
+          <div className="flex flex-col-reverse gap-3 sm:col-span-2 sm:flex-row sm:justify-end">
+            <Button variant="ghost" onClick={closeHire}>
+              Close
+            </Button>
+            <Button type="submit" disabled={sending}>
+              {sending ? "Sending..." : "Send Message"}
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );

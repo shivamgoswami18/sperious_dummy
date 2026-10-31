@@ -1,127 +1,107 @@
+import Image from "next/image";
+import Link from "next/link";
+import { navLinks, services } from "@/lib/content";
+import { Container } from "./ui";
+import FooterHireButton from "./FooterHireButton";
+
 export default function Footer() {
   return (
-    <>
-      <footer className="footer-area bg-with-black-color">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3 col-md-6 col-sm-6">
-              <div className="single-footer-widget">
-                <div className="logo">
-                  <h3>About Company</h3>
-                  <p>
-                    {" "}
-                    Sperious is one of Indian leading companies in the field of
-                    Web Development and Designing Company. The company offers a
-                    large variety of services, including research, development
-                    and technological works automation, distribution,
-                    development and system integration of software and hardware.
-                  </p>
-                </div>
-              </div>
-            </div>
+    <footer className="mt-8 bg-navy text-white">
+      <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <Link href="/" className="mb-4 inline-flex items-center gap-2.5">
+            <Image
+              src="/assets/img/SPERIOUS S PNG.png"
+              alt="Sperious"
+              width={32}
+              height={32}
+              className="h-8 w-8 object-contain"
+            />
+            <span className="font-display text-lg font-semibold">Sperious</span>
+          </Link>
+          <p className="max-w-xs text-sm leading-7 text-white/65">
+            One of India&apos;s leading web development and design companies.
+            Research, development, automation, and system integration for
+            software and hardware.
+          </p>
+        </div>
 
-            <div className="col-lg-3 col-md-6 col-sm-6">
-              <div className="single-footer-widget">
-                <h3>Services</h3>
-                <ul className="footer-services-list">
-                  <li>
-                    <a href="/Node">Node.js</a>
-                  </li>
-                  <li>
-                    <a href="/React">React.js</a>
-                  </li>
-                  <li>
-                    <a href="/Vue">Vue.js</a>
-                  </li>
-                  <li>
-                    <a href="/Angular">Angular.js</a>
-                  </li>
-                  <li>
-                    <a href="/ReactNative">React Native</a>
-                  </li>
-                  <li>
-                    <a href="/Python">Python</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+            Services
+          </h3>
+          <ul className="space-y-2.5">
+            {services.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-sm text-white/75 transition hover:text-white"
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-            <div className="col-lg-3 col-md-6 col-sm-6">
-              <div className="single-footer-widget">
-                <h3>Quick Links</h3>
-                <ul className="quick-links-list">
-                  <li>
-                    <a href="/">Home</a>
-                  </li>
-                  <li>
-                    <a href="/service">Services</a>
-                  </li>
-                  <li>
-                    <a href="/aboutUs">About Us</a>
-                  </li>
-                  <li>
-                    <a href="/contactUs">Contact Us</a>
-                  </li>
-                  <li>
-                    <a href="#hire-developer" data-toggle="modal" data-target="#exampleModal">
-                      Hire Developer
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+            Quick links
+          </h3>
+          <ul className="space-y-2.5">
+            {navLinks.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-sm text-white/75 transition hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <FooterHireButton />
+            </li>
+          </ul>
+        </div>
 
-            <div className="col-lg-3 col-md-6 col-sm-6">
-              <div className="single-footer-widget">
-                <h3>Contacts</h3>
-                <ul className="footer-contact-list">
-                  <li>
-                    <span>Address:</span> Science City Rd,
-                    <br />
-                    Ahemdabad - 380060
-                  </li>
-                  <li>
-                    <span>Email:</span>{" "}
-                    <a href="mailto:contact@sperious.co">contact@sperious.co</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
+            Contact
+          </h3>
+          <ul className="space-y-3 text-sm text-white/75">
+            <li>
+              Science City Rd,
+              <br />
+              Ahemdabad - 380060
+            </li>
+            <li>
+              <a
+                href="mailto:contact@sperious.co"
+                className="transition hover:text-white"
+              >
+                contact@sperious.co
+              </a>
+            </li>
+          </ul>
+        </div>
+      </Container>
+
+      <div className="border-t border-white/10">
+        <Container className="flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/50 sm:flex-row">
+          <p>
+            Copyright © 2016{" "}
+            <Link href="/" className="text-white/80 hover:text-white">
+              Sperious
+            </Link>
+            . All Rights Reserved.
+          </p>
+          <div className="flex gap-5">
+            <span>Privacy Policy</span>
+            <span>Terms & Conditions</span>
           </div>
-        </div>
-
-        <div className="copyright-area">
-          <div className="container ">
-            <div className="row align-items-center">
-              <div className="col-lg-6 col-md-6 col-sm-6">
-                <p>
-                  Copyright © 2016 <a href="/">Sperious.</a> All Rights
-                  Reserved.
-                </p>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-6">
-                <ul>
-                  <li>
-                    <a href="#">Privacy Policy</a>
-                  </li>
-                  <li>
-                    <a href="#">Terms & Conditions</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="circle-map">
-          <img src="/assets/img/circle-map.png" alt="image" />
-        </div>
-      </footer>
-
-      <div className="go-top">
-        <i className="fas fa-arrow-up"></i>
-        <i className="fas fa-arrow-up"></i>
+        </Container>
       </div>
-    </>
+    </footer>
   );
 }

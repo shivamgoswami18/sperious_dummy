@@ -47,6 +47,10 @@ export default function SiteScripts() {
         }
         await loadScript(src);
       }
+
+      document
+        .querySelector(".preloader")
+        ?.classList.add("preloader-deactivate");
     }
 
     boot().catch(() => {

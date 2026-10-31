@@ -1,1 +1,100 @@
-/* Original Evolta styles are loaded from /assets/css in the root layout. */
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #12151c;
+  --color-muted: #5c6472;
+  --color-paper: #f3f0e8;
+  --color-snow: #ffffff;
+  --color-line: #e3ddd1;
+  --color-navy: #101720;
+  --color-navy-soft: #1a2432;
+  --color-accent: #1d4ed8;
+  --color-accent-dark: #153cab;
+  --color-gold: #9a7b2f;
+  --shadow-card: 0 1px 2px rgb(18 21 28 / 4%), 0 12px 32px rgb(18 21 28 / 6%);
+  --shadow-lift: 0 16px 40px rgb(18 21 28 / 10%);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+::selection {
+  background: #dbe6ff;
+  color: var(--color-ink);
+}
+
+.site-grid {
+  background-image:
+    linear-gradient(rgb(16 23 32 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(16 23 32 / 4%) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise 0.7s ease both;
+}
+
+.delay-1 {
+  animation-delay: 80ms;
+}
+.delay-2 {
+  animation-delay: 160ms;
+}
+.delay-3 {
+  animation-delay: 240ms;
+}
+.delay-4 {
+  animation-delay: 320ms;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--color-line);
+  background: var(--color-snow);
+  padding: 0.85rem 1rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgb(29 78 216 / 12%);
+}
+
+.input-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
