@@ -33,7 +33,7 @@ export function SectionHeading({
 
 const buttonClasses = {
   primary:
-    "bg-accent text-on-accent hover:bg-accent-dark shadow-[0_0_24px_rgb(61_255_196_/_25%)] hover:-translate-y-0.5",
+    "bg-accent text-on-accent shadow-accent-glow hover:bg-accent-dark hover:-translate-y-0.5",
   secondary:
     "bg-violet text-white hover:brightness-110 shadow-[0_0_24px_rgb(124_108_255_/_25%)] hover:-translate-y-0.5",
   ghost:

@@ -16,13 +16,13 @@ export default function ServiceDetail({ title, image, imageStyle, children }) {
       />
       <section className="py-16 sm:py-20">
         <Container className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-3xl border border-edge-strong bg-surface p-8 shadow-card">
+          <div className="overflow-hidden rounded-3xl border border-edge-strong bg-surface shadow-card">
             <Image
               src={image}
               alt={title}
-              width={560}
-              height={420}
-              className="mx-auto h-auto w-full max-w-md object-contain"
+              width={720}
+              height={480}
+              className="h-full w-full object-cover"
               style={imageStyle}
             />
           </div>

@@ -1,0 +1,9 @@
+/*
+  Brand accent — change these three values to retheme the whole site.
+  Current: Sky
+*/
+:root {
+  --brand-accent: #0284c7;
+  --brand-accent-dark: #0369a1;
+  --accent-rgb: 2, 132, 199;
+}

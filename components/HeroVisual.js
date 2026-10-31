@@ -1,9 +1,4 @@
-const chips = [
-  { label: "React.js", className: "left-[4%] top-[8%]", delay: "0s" },
-  { label: "Node.js", className: "right-[4%] top-[8%]", delay: "0.8s" },
-  { label: "Vue.js", className: "left-[16%] bottom-[16%]", delay: "1.4s" },
-  { label: "Python", className: "right-[16%] bottom-[16%]", delay: "2s" },
-];
+import { technologies } from "@/lib/content";
 
 export default function HeroVisual() {
   return (
@@ -21,21 +16,22 @@ export default function HeroVisual() {
           From idea to deployed product
         </h2>
         <p className="mt-4 max-w-sm text-sm leading-7 text-muted">
-          Dedicated developers, web apps, and mobile products — designed around
-          your stack, timeline, and business outcomes.
+          Dedicated developers across AI, web, mobile, analytics, security, and
+          cloud — designed around your timeline and business outcomes.
         </p>
       </div>
 
-      <div className="relative z-10 my-3 min-h-[130px] flex-1">
-        {chips.map((chip) => (
-          <span
-            key={chip.label}
-            className={`absolute rounded-full border border-edge-strong bg-paper/80 px-4 py-2 text-xs font-semibold text-ink backdrop-blur ${chip.className}`}
-            style={{ animation: "floaty 5.5s ease-in-out infinite", animationDelay: chip.delay }}
-          >
-            {chip.label}
-          </span>
-        ))}
+      <div className="relative z-10 my-6 flex flex-1 items-center">
+        <div className="grid w-full grid-cols-3 gap-2 sm:gap-3">
+          {technologies.map((label) => (
+            <span
+              key={label}
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-edge-strong bg-paper/80 px-2 py-2 text-center text-[10px] font-semibold leading-tight text-ink backdrop-blur sm:text-xs"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className="relative z-10 grid grid-cols-2 gap-3">
@@ -45,7 +41,7 @@ export default function HeroVisual() {
         </div>
         <div className="rounded-2xl border border-edge-strong bg-paper/70 p-4 backdrop-blur">
           <p className="text-xs uppercase tracking-[0.16em] text-gold">Focus</p>
-          <p className="mt-1 font-display text-lg">Web + mobile</p>
+          <p className="mt-1 font-display text-lg">Product + platform</p>
         </div>
       </div>
     </div>

@@ -1,15 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
 import CountUp from "@/components/CountUp";
 import HeroVisual from "@/components/HeroVisual";
 import HomeHireButton from "@/components/HomeHireButton";
 import Marquee from "@/components/Marquee";
 import Testimonials from "@/components/Testimonials";
 import { Button, Container, SectionHeading } from "@/components/ui";
-import { features, processSteps, services, stats, technologies } from "@/lib/content";
+import ServiceCard from "@/components/ServiceCard";
+import { features, processSteps, services, stats } from "@/lib/content";
+import aboutPhoto from "@/data/assets/computer-1149148_1280.jpg";
 
 const featureTones = {
-  mint: "from-accent/20 via-surface to-transparent hover:shadow-[0_0_40px_rgb(61_255_196_/_14%)]",
+  mint: "from-accent/20 via-surface to-transparent hover:shadow-accent-card",
   violet: "from-violet/25 via-surface to-transparent hover:shadow-[0_0_40px_rgb(124_108_255_/_16%)]",
   coral: "from-[#ff6b6b]/20 via-surface to-transparent hover:shadow-[0_0_40px_rgb(255_107_107_/_14%)]",
 };
@@ -21,7 +22,7 @@ export default function HomePage() {
         <div className="mesh absolute inset-0" />
         <div className="orb -left-16 top-10 h-72 w-72 bg-violet/30" />
         <div className="orb right-0 top-24 h-80 w-80 bg-accent/18" />
-        <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
+        <Container className="relative grid items-center gap-12 pt-6 pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:pt-8 lg:pb-16">
           <div>
             <p className="animate-rise mb-5 inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
               Software studio · Ahmedabad
@@ -104,7 +105,7 @@ export default function HomePage() {
           {features.map((item) => (
             <article
               key={item.title}
-              className={`rounded-3xl border border-edge bg-gradient-to-br p-7 transition duration-300 hover:-translate-y-1 ${
+              className={`flex h-full flex-col rounded-3xl border border-edge bg-gradient-to-br p-7 transition duration-300 hover:-translate-y-1 ${
                 featureTones[item.tone]
               }`}
             >
@@ -112,7 +113,7 @@ export default function HomePage() {
                 {item.title}
               </h3>
               <p className="mt-3 text-sm leading-7 text-muted">{item.text}</p>
-              <div className="mt-6">
+              <div className="mt-auto pt-6">
                 {item.action === "hire" ? (
                   <HomeHireButton>{item.actionLabel}</HomeHireButton>
                 ) : (
@@ -131,16 +132,15 @@ export default function HomePage() {
           <div className="relative overflow-hidden rounded-[2rem] border border-edge-strong bg-surface shadow-card">
             <div className="orb -left-8 top-8 h-32 w-32 bg-accent/20" />
             <Image
-              src="/assets/img/it-services-home/choose.png"
-              alt="Sperious team at work"
+              src={aboutPhoto}
+              alt="Software product dashboard"
               width={720}
               height={560}
-              className="relative h-full w-full object-cover"
+              className="relative h-full w-full object-contain p-6"
             />
           </div>
           <div>
             <SectionHeading
-              eyebrow="About us"
               title="We've been thriving for 5+ years in tech"
               align="left"
             />
@@ -151,19 +151,6 @@ export default function HomePage() {
               technological works automation, distribution, development and
               system integration of software and hardware.
             </p>
-            <ul className="mt-6 grid grid-cols-2 gap-3">
-              {technologies.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-full border border-edge-strong bg-surface px-4 py-2 text-sm text-ink"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Button href="/aboutUs" className="mt-8">
-              View more about us
-            </Button>
           </div>
         </Container>
       </section>
@@ -173,26 +160,11 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Our services"
             title="From initial design to deployment, anywhere"
-            text="Top-tier digital products from a web and mobile development company with a focus on your online business profitability and ownership."
+            text="AI, web, mobile, analytics, security, and cloud — built around your business outcomes."
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {services.map((item, index) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="group rounded-3xl border border-edge bg-surface p-7 transition duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift"
-              >
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  0{index + 1}
-                </span>
-                <h3 className="mt-4 font-display text-2xl font-semibold text-ink">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-muted">{item.text}</p>
-                <span className="mt-6 inline-flex text-sm font-semibold text-accent group-hover:gap-2">
-                  Read more →
-                </span>
-              </Link>
+            {services.map((item) => (
+              <ServiceCard key={item.href} item={item} />
             ))}
           </div>
         </Container>

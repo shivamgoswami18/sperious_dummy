@@ -1,5 +1,4 @@
 import { DM_Sans, Syne } from "next/font/google";
-import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
@@ -30,16 +29,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      data-theme="light"
-      className={`${body.variable} ${display.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${body.variable} ${display.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <Script id="sperious-theme" strategy="beforeInteractive">
-          {`(function(){try{var t=localStorage.getItem("sperious-theme");var next=t==="dark"?"dark":"light";document.documentElement.dataset.theme=next;document.documentElement.style.colorScheme=next;}catch(e){document.documentElement.dataset.theme="light";document.documentElement.style.colorScheme="light";}})();`}
-        </Script>
         <Providers>
           <Header />
           <main>{children}</main>

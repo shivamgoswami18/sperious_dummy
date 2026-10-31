@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/content";
 import { Button, Container } from "./ui";
 import { useHire } from "./HireContext";
-import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const pathname = usePathname();
@@ -61,7 +60,7 @@ export default function Header() {
                 href={item.href}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                   active
-                    ? "bg-accent text-on-accent shadow-[0_0_18px_rgb(61_255_196_/_28%)]"
+                    ? "bg-accent text-on-accent shadow-accent-glow"
                     : "text-muted hover:text-ink"
                 }`}
               >
@@ -72,7 +71,6 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <div className="hidden lg:block">
             <Button onClick={openHire}>Hire Developer</Button>
           </div>

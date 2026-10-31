@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000).
 - `/service` Services
 - `/aboutUs` About Us
 - `/contactUs` Contact Us
-- `/React`, `/Vue`, `/Angular`, `/Node`, `/Python`, `/ReactNative`
+- `/ai-machine-learning`, `/web-development`, `/mobile-app-development`, `/data-analytics`, `/cybersecurity`, `/cloud-solutions`
 
 Old PHP URLs such as `/index.php` and `/contactUs.php` redirect to the new routes.
 
