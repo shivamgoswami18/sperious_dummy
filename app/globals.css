@@ -55,13 +55,13 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  color-scheme: dark;
+  color-scheme: light;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-html[data-theme="light"] body {
-  color-scheme: light;
+html[data-theme="dark"] body {
+  color-scheme: dark;
 }
 
 h1,

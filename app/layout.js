@@ -32,13 +32,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       className={`${body.variable} ${display.variable}`}
       suppressHydrationWarning
     >
       <body className="font-sans antialiased" suppressHydrationWarning>
         <Script id="sperious-theme" strategy="beforeInteractive">
-          {`(function(){try{var t=localStorage.getItem("sperious-theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}}catch(e){}})();`}
+          {`(function(){try{var t=localStorage.getItem("sperious-theme");var next=t==="dark"?"dark":"light";document.documentElement.dataset.theme=next;document.documentElement.style.colorScheme=next;}catch(e){document.documentElement.dataset.theme="light";document.documentElement.style.colorScheme="light";}})();`}
         </Script>
         <Providers>
           <Header />

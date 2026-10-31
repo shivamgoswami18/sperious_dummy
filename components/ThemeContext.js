@@ -4,15 +4,15 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const STORAGE_KEY = "sperious-theme";
 const ThemeContext = createContext({
-  theme: "dark",
+  theme: "light",
   toggleTheme: () => {},
 });
 
 function readTheme() {
   if (typeof document === "undefined") {
-    return "dark";
+    return "light";
   }
-  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
 function applyTheme(theme) {
@@ -22,7 +22,7 @@ function applyTheme(theme) {
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     setTheme(readTheme());
