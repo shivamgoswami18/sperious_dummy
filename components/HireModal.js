@@ -5,15 +5,28 @@ import { hireDurations, hireTechnologies } from "@/lib/content";
 import { useHire } from "./HireContext";
 import { Button } from "./ui";
 
+const REQUIRED_MESSAGE = "This field is required.";
+
+function FieldError({ message }) {
+  if (!message) {
+    return null;
+  }
+  return <p className="mt-1 text-sm text-red-500">{message}</p>;
+}
+
 export default function HireModal() {
   const { isOpen, closeHire } = useHire();
   const titleId = useId();
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (!isOpen) {
+      setErrors({});
+      setStatus("");
+      setSuccess(false);
       return undefined;
     }
 
@@ -33,36 +46,82 @@ export default function HireModal() {
     };
   }, [isOpen, closeHire]);
 
+  function clearError(name) {
+    setErrors((current) => {
+      if (!current[name]) {
+        return current;
+      }
+      const next = { ...current };
+      delete next[name];
+      return next;
+    });
+  }
+
+  function validate(data) {
+    const nextErrors = {};
+    if (!String(data.get("fullname") || "").trim()) {
+      nextErrors.fullname = REQUIRED_MESSAGE;
+    }
+    if (!String(data.get("email") || "").trim()) {
+      nextErrors.email = REQUIRED_MESSAGE;
+    }
+    if (!String(data.get("company") || "").trim()) {
+      nextErrors.company = REQUIRED_MESSAGE;
+    }
+    if (!String(data.get("technology") || "").trim()) {
+      nextErrors.technology = REQUIRED_MESSAGE;
+    }
+    if (!String(data.get("duration") || "").trim()) {
+      nextErrors.duration = REQUIRED_MESSAGE;
+    }
+    if (!String(data.get("requirements") || "").trim()) {
+      nextErrors.requirements = REQUIRED_MESSAGE;
+    }
+    return nextErrors;
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
+    const nextErrors = validate(data);
 
-    setSending(true);
+    setErrors(nextErrors);
     setStatus("");
     setSuccess(false);
 
+    if (Object.keys(nextErrors).length) {
+      return;
+    }
+
+    setSending(true);
+
     try {
-      const response = await fetch("/api/hire-developer", {
+      const response = await fetch("https://api.aranathgroup.com/api/hireadeveloper", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          secretKey: "shiv",
+        },
         body: JSON.stringify({
-          fullname: data.get("fullname"),
-          email: data.get("email"),
-          number: data.get("number"),
-          technology: data.get("technology"),
-          duration: data.get("duration"),
+          name: data.get("fullname") || "",
+          email: data.get("email") || "",
+          phone: data.get("number") || "Not provided",
+          company: data.get("company") || "",
+          technology: data.get("technology") || "",
+          duration: data.get("duration") || "",
+          message: data.get("requirements") || "",
         }),
       });
 
-      const result = await response.json();
-      if (!response.ok || !result.success) {
-        setStatus(result.message || "An error occurred, please try again !");
+      if (!response.ok) {
+        setStatus("An error occurred, please try again !");
         return;
       }
 
       setSuccess(true);
       setStatus("Message sent successfully!");
+      setErrors({});
       form.reset();
     } catch {
       setStatus("An error occurred, please try again !");
@@ -111,44 +170,56 @@ export default function HireModal() {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+        <form noValidate onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
           <label className="block text-sm font-medium text-ink">
-            Full Name*
+            Full Name<span className="text-red-500">*</span>
             <input
               type="text"
               name="fullname"
               placeholder="Enter full name"
-              required
               className="input-field mt-2"
+              onChange={() => clearError("fullname")}
             />
+            <FieldError message={errors.fullname} />
           </label>
           <label className="block text-sm font-medium text-ink">
-            Email*
+            Email<span className="text-red-500">*</span>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
-              required
               className="input-field mt-2"
+              onChange={() => clearError("email")}
             />
+            <FieldError message={errors.email} />
           </label>
           <label className="block text-sm font-medium text-ink">
-            Phone Number*
+            Phone Number (Optional)
             <input
               type="text"
               name="number"
               placeholder="Ex. +9156234785"
-              required
               className="input-field mt-2"
             />
           </label>
           <label className="block text-sm font-medium text-ink">
-            Technology*
+            Company Name<span className="text-red-500">*</span>
+            <input
+              type="text"
+              name="company"
+              placeholder="Company Inc."
+              className="input-field mt-2"
+              onChange={() => clearError("company")}
+            />
+            <FieldError message={errors.company} />
+          </label>
+          <label className="block text-sm font-medium text-ink sm:col-span-2">
+            Technology<span className="text-red-500">*</span>
             <select
               name="technology"
-              required
               defaultValue=""
               className="input-field mt-2"
+              onChange={() => clearError("technology")}
             >
               <option value="" disabled>
                 Select technology
@@ -159,10 +230,11 @@ export default function HireModal() {
                 </option>
               ))}
             </select>
+            <FieldError message={errors.technology} />
           </label>
           <fieldset className="sm:col-span-2">
             <legend className="mb-3 text-sm font-medium text-ink">
-              Duration (in months)*
+              Duration (in months)<span className="text-red-500">*</span>
             </legend>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {hireDurations.map((item) => (
@@ -174,14 +246,26 @@ export default function HireModal() {
                     type="radio"
                     name="duration"
                     value={item}
-                    required
                     className="sr-only"
+                    onChange={() => clearError("duration")}
                   />
                   {item}
                 </label>
               ))}
             </div>
+            <FieldError message={errors.duration} />
           </fieldset>
+          <label className="block text-sm font-medium text-ink sm:col-span-2">
+            Project Requirements<span className="text-red-500">*</span>
+            <textarea
+              name="requirements"
+              rows="4"
+              placeholder="Tell us about your project and the type of developer you're looking for..."
+              className="input-field mt-2 min-h-28"
+              onChange={() => clearError("requirements")}
+            />
+            <FieldError message={errors.requirements} />
+          </label>
           {status ? (
             <p
               className={`sm:col-span-2 text-sm ${
